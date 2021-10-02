@@ -43,7 +43,7 @@
 * rails assets:precompile RAILS_ENV=production
 * git add -A
 * git commit -m "heroku_step2"
-* git push heroku step2
+* git push heroku step2:master
 * heroku run rails db:migrate
 * heroku open
 
