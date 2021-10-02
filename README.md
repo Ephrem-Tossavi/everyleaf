@@ -36,6 +36,17 @@
 |name----------| string------|
 
 
+### Deployment procedure to Heroku
+
+* heroku login -i
+* heroku create everyleaf_step2
+* rails assets:precompile RAILS_ENV=production
+* git add -A
+* git commit -m "heroku_step2"
+* git push heroku step2:master
+* heroku run rails db:migrate
+* heroku open
+
 Things you may want to cover:
 
 * Ruby version '5.2.5'
