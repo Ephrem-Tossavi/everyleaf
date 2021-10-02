@@ -39,7 +39,7 @@
 ### Deployment procedure to Heroku
 
 * heroku login -i
-* heroku create everyleaf_step2
+* heroku create everyleaf-step2-tce
 * rails assets:precompile RAILS_ENV=production
 * git add -A
 * git commit -m "heroku_step2"
