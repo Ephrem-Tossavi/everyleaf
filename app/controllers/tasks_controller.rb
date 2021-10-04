@@ -3,7 +3,11 @@ class TasksController < ApplicationController
 
   # GET /tasks or /tasks.json
   def index
-    @tasks = Task.all.order("created_at desc")
+    @tasks = Task.all.page(params[:page]).per(5)
+    @tasks = Task.all.order("created_at desc").page(params[:page]).per(5)
+    @tasks = Task.all.order_by_deadline.page(params[:page]).per(5) if params[:sort_expired] == "true"
+    @tasks = Task.all.order_by_priority_button.page(params[:page]).per(5) if params[:sort_by_priority] == "true"
+
   end
 
   # GET /tasks/1 or /tasks/1.json
@@ -22,6 +26,8 @@ class TasksController < ApplicationController
   # POST /tasks or /tasks.json
   def create
     @task = Task.new(task_params)
+    @task.status=params[:task][:status]  
+    @task.priority=params[:task][:priority]
 
     respond_to do |format|
       if @task.save
@@ -47,6 +53,43 @@ class TasksController < ApplicationController
     end
   end
 
+  def search 
+    session[:search] = {'name' => params[:search_title], 'status' => params[:search_status], 'priority' => params[:search_priority]}
+   
+    if params[:search_title].present?
+      if params[:search_status].present?
+        if params[:search_priority].present?
+          @tasks = Task.all.title_search(params[:search_title]).order_by_status(params[:search_status]).order_by_priority(params[:search_priority]).kaminari params[:page] 
+        else
+          @tasks = Task.all.title_search(params[:search_title]).order_by_status(params[:search_status]).kaminari params[:page] 
+        end
+      elsif params[:search_priority].present?
+        @tasks = Task.all.title_search(params[:search_title]).order_by_priority(params[:search_priority]).kaminari params[:page] 
+      else
+        @tasks = Task.all.title_search(params[:search_title]).kaminari params[:page] 
+
+      end
+    elsif params[:search_status].present?
+      
+      if params[:search_priority].present?
+        @tasks = Task.all.order_by_status(params[:search_status]).order_by_priority(params[:search_priority]).kaminari params[:page] 
+      else
+        @tasks = Task.all.order_by_status(params[:search_status]).kaminari params[:page] 
+      end
+    elsif params[:search_priority].present?
+      
+      if params[:search_status].present?
+        @tasks = Task.all.order_by_priority(params[:search_priority]).order_by_status(params[:search_status]).kaminari params[:page] 
+      else
+        @tasks = Task.all.order_by_priority(params[:search_priority]).kaminari params[:page] 
+      end
+    else
+      @tasks = Task.all
+    end  
+    render :index
+  end
+
+
   # DELETE /tasks/1 or /tasks/1.json
   def destroy
     @task.destroy
@@ -64,6 +107,6 @@ class TasksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def task_params
-      params.require(:task).permit(:name, :content)
+      params.require(:task).permit(:name, :content, :deadline, :status, :priority)
     end
 end

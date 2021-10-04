@@ -6,7 +6,7 @@
 |------------- | ------------|
 |name--------- | string------|
 |content------ | text--------|
-|deadeline---- | date--------|
+|deadline----- | date--------|
 |priority----- | integer-----|
 |status--------| integer-----|
 |user_id-------| foreign_key-|
