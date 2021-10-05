@@ -25,7 +25,8 @@ class TasksController < ApplicationController
 
   # POST /tasks or /tasks.json
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
+    #@task = Task.new(task_params)
     @task.status=params[:task][:status]  
     @task.priority=params[:task][:priority]
 

@@ -1,0 +1,55 @@
+<div class="container">
+     <div class="row">
+         <div class="col-md-6">
+            <img src="https://i.pinimg.com/originals/13/93/1f/13931fb7029364c9c9f194950bd46edb.png" class="center-block", style="width: 400px;">
+        </div>
+        <div class="col-md-6">
+        <%= form_with(model: [:admin, user], local: true) do |form| %>
+
+          <% if user.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+            <ul>
+              <% user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+          <% end %>
+      
+        <div class="field">
+           <%= form.label :name %>
+           <%= form.text_field :name , class: "form-control", id: "name", placeholder: "Enter nom"%>
+        </div>
+                  
+        <div class="field">
+           <%= form.label :email %>
+           <%= form.email_field :email , class: "form-control", id: "email", placeholder: "Enter email"%>
+        </div>
+                  
+        <div class="field">
+           <%= form.label :password %>
+           <%= form.password_field :password , class: "form-control", id: "password", placeholder: "Enter password"%>
+        </div>
+      
+        <div class="field">
+          <%= form.label :password_confirmation %>
+          <%= form.password_field :password_confirmation , class: "form-control", id: "password_confirmation", placeholder: "Confirmer password"%>
+        </div>
+      
+          <%if current_user and current_user.is_admin%>
+          <div class="field my-2">
+            <%= form.label "make admin"%>
+            <%= form.check_box :is_admin %>
+          </div>
+          <%end%>
+      
+          <% if action_name == "edit" %>
+          <div class="actions" style="float: right"><%= form.submit "Update" %></div>
+          <% else %>
+          <div class="actions" style="float: right"><%= form.submit "Signup" %></div>
+          <% end %>
+        <% end %>
+      </div>
+     </div>   
+</div>

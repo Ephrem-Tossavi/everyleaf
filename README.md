@@ -17,7 +17,7 @@
 |**Column**----- | **Type**----|
 |----------------| ------------|
 |name------------| string------|
-|mail------------| string------|
+|email-----------| string------|
 |password_digest-| string------|
 |to_be_admi------| boolean-----|
 
