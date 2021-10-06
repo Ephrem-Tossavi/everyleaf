@@ -5,3 +5,11 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+
+user = User.create(name: "Erwan", email: "erwan@gmail.com", is_admin: true, password: "password")
+tasks = Task.all
+
+tasks.each do |task|
+    task.update(user_id: User.last.id) 
+end

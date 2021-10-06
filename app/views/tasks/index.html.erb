@@ -27,7 +27,7 @@
 <%= link_to "order by deadline", tasks_path(sort_expired: "true") ,class: "btn btn-info"%>
 <%= link_to "order by priority", tasks_path(sort_by_priority: "true") ,class: "btn btn-info"%>
 
-<table>
+<table class= "table table-striped table-bordered">
   <thead>
     <tr>
       <th>Name</th>
@@ -36,6 +36,7 @@
       <th>Registered Date</th>
       <th>Status</th>
       <th>Priority</th>
+      <th>User</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -49,6 +50,7 @@
         <td><%= task.created_at %></td>
         <td><%= task.status %></td>
         <td><%= task.priority %></td>
+        <td><%= task.user.name %></td>
         <td><%= link_to "Show", task, class:"btn btn-outline-primary" %></td>
         <td><%= link_to "Edit", edit_task_path(task), class:"btn btn-outline-success" %></td>
         <td><%= link_to "Delete", task, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-outline-danger" %></td>

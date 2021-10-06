@@ -3,10 +3,15 @@ class TasksController < ApplicationController
 
   # GET /tasks or /tasks.json
   def index
-    @tasks = Task.all.page(params[:page]).per(5)
-    @tasks = Task.all.order("created_at desc").page(params[:page]).per(5)
-    @tasks = Task.all.order_by_deadline.page(params[:page]).per(5) if params[:sort_expired] == "true"
-    @tasks = Task.all.order_by_priority_button.page(params[:page]).per(5) if params[:sort_by_priority] == "true"
+    #@tasks = Task.all.page(params[:page]).per(5)
+    #@tasks = Task.all.order("created_at desc").page(params[:page]).per(5)
+    #@tasks = Task.all.order_by_deadline.page(params[:page]).per(5) if params[:sort_expired] == "true"
+    #@tasks = Task.all.order_by_priority_button.page(params[:page]).per(5) if params[:sort_by_priority] == "true"
+
+    @tasks = current_user.tasks.all.page(params[:page]).per(5)
+    @tasks = current_user.tasks.all.order("created_at desc").page(params[:page]).per(5)
+    @tasks = current_user.tasks.all.order_by_deadline.page(params[:page]).per(5) if params[:sort_expired] == "true"
+    @tasks = current_user.tasks.all.order_by_priority_button.page(params[:page]).per(5) if params[:sort_by_priority] == "true"
 
   end
 
@@ -25,7 +30,8 @@ class TasksController < ApplicationController
 
   # POST /tasks or /tasks.json
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
+    #@task = Task.new(task_params)
     @task.status=params[:task][:status]  
     @task.priority=params[:task][:priority]
 
