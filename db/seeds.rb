@@ -11,5 +11,5 @@ user = User.create(name: "Erwan", email: "erwan@gmail.com", is_admin: true, pass
 tasks = Task.all
 
 tasks.each do |task|
-    task.update(user_id: User.last.id)
+    task.update(user_id: User.last.id) 
 end

@@ -47,7 +47,7 @@
 * heroku buildpacks:add --index 1 heroku/nodejs
 * git push heroku step2:master
 * heroku run rails db:migrate
-* heroku open
+* heroku open 
 
 Things you may want to cover:
 
