@@ -4,7 +4,8 @@ class UsersController < ApplicationController
 
   # GET /users or /users.json
   def index
-    @users = User.all
+    #@users = User.all
+    redirect_to tasks_path if current_user.is_admin != true
   end
 
   # GET /users/1 or /users/1.json
@@ -21,12 +22,16 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
-    if current_user &. is_admin 
-      @user = User.new
-    elsif current_user ==nil
-      @user = User.new
+    #if current_user &. is_admin 
+    #  @user = User.new
+    #elsif current_user ==nil
+    #  @user = User.new
+    #else
+    #  redirect_to tasks_path
+    if current_user
+    redirect_to tasks_path
     else
-      redirect_to tasks_path
+    @user = User.new 
     end
   end
 
