@@ -7,9 +7,21 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-user = User.create(name: "Erwan", email: "erwan@gmail.com", is_admin: true, password: "password")
+user = User.create(name: "Ephrem TOSSAVI", email: "ephrem@gmail.com", is_admin: true, password: "password")
 tasks = Task.all
 
 tasks.each do |task|
     task.update(user_id: User.last.id) 
 end
+
+status = ["unstarted", "progress", "completed"]
+priority = ["Low", "Medium", "High"]
+
+(1..10).each do |x|
+    name = Faker::Lorem.word
+    Label.create(name: name)
+    User.create(name: "name#{x}", email: "example#{x}@gmail.com", password: "password")
+    Task.create(name: "task_title#{x}", content: "content#{x}", deadline: Faker::Date.between(from: '2021-10-10', to: '2021-10-31'), status: status.sample, priority: priority.sample,user_id: User.last.id )
+  
+end
+

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :labels
   get 'sessions/new'
   root "tasks#index"
   get '/search', to: "tasks#search", as: "search_tasks"
