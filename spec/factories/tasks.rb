@@ -5,6 +5,7 @@ FactoryBot.define do
     deadline {DateTime.now +1.day}
     status {"unstarted"}
     priority {"Low"}
+    user_id {nil}
   end
   factory :second_task, class: Task do
     name {'titre2_factory'}
@@ -12,5 +13,6 @@ FactoryBot.define do
     deadline {"2021-10-31"}
     status {"progress"}
     priority {"High"}
+    user_id {nil}
   end
 end
